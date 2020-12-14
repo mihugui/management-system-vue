@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="200px"><Aside /></el-aside>
     <el-container>
       <el-header>Header</el-header>
       <el-main><router-view /></el-main>
@@ -10,10 +10,12 @@
 </template>
 
 <script>
-import Footer from "@/layout/Footer";
+import Footer from "@/layout/Footer.vue";
+import Aside from "@/layout/background/Aside.vue";
 export default {
   components: {
-    Footer
+    Footer,
+    Aside
   }
 };
 </script>

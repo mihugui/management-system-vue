@@ -5,7 +5,23 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.getList();
+  },
+  methods: {
+    getList() {
+      this.$store
+        .dispatch("user/list")
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+};
 </script>
 
 <style></style>

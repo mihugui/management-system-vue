@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Footer />
+    <Aside />
   </div>
 </template>
 
 <script>
-import Footer from "@/view/footer/index.vue";
+import Aside from "@/view/background/aside/index.vue";
 export default {
   components: {
-    Footer
+    Aside
   }
 };
 </script>

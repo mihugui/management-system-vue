@@ -34,6 +34,17 @@ export default {
     },
     defaultActive: {
       type: String
+    },
+    menuData: {
+      type: Array,
+      default: () => [
+        {
+          path: "user",
+          name: "用户管理",
+          hideInMenu: false,
+          meta: { authority: ["admin"] }
+        }
+      ]
     }
   }
 };

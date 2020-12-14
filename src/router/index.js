@@ -1,16 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Background from "./modules/User";
 
 Vue.use(VueRouter);
 
 import user from "./modules/User";
 
+// 登录注册
+import login from "./modules/Login";
+import register from "./modules/Register";
+
 const routes = [
   {
     path: "/",
     hideInMenu: true,
-    meta: { authority: ["user"] },
+    meta: { authority: ["guest"] },
     name: "Home",
     component: () => import("@/layout/Home")
   },
@@ -19,27 +22,18 @@ const routes = [
     hideInMenu: true,
     name: "background",
     meta: { authority: ["admin"] },
-    component: () => import("@/layout/Background"),
+    component: () => import("@/layout/background/index"),
     children: [user]
   },
   {
-    path: "/login",
+    path: "/sign",
     hideInMenu: true,
-    meta: { authority: ["user"] },
-    name: "login",
+    meta: { authority: ["guest"] },
+    name: "sign",
     component: () => import("@/layout/Login"),
-    children: [
-      {
-        path: "",
-        meta: { authority: ["user"] },
-        name: "Home",
-        component: () => import("@/view/login/index")
-      }
-    ]
+    children: [login, register]
   }
 ];
-
-routes.push(Background);
 
 const router = new VueRouter({
   base: process.env.BASE_URL,

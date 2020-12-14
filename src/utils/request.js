@@ -1,8 +1,9 @@
 import axios from "axios";
 import { MessageBox, Message } from "element-ui";
 import store from "@/store";
-import { getToken } from "@/utils/auth";
+import { getToken, reload } from "@/utils/auth";
 import appConfig from "../../static/app-config.json";
+import router from "../router";
 
 // create an axios instance
 const service = axios.create({
@@ -16,12 +17,11 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
     config.url = appConfig.baseUrl + config.url;
-
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers["X-Token"] = getToken();
+      config.headers["token"] = getToken();
     }
     return config;
   },
@@ -56,20 +56,23 @@ service.interceptors.response.use(
       });
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      if (res.code === 403) {
         // to re-login
         MessageBox.confirm(
-          "You have been logged out, you can cancel to stay on this page, or log in again",
-          "Confirm logout",
+          "你已经退出,停留在当前页面或者跳转到登录页",
+          "重新登录",
           {
-            confirmButtonText: "Re-Login",
-            cancelButtonText: "Cancel",
+            confirmButtonText: "重新登录",
+            cancelButtonText: "取消",
             type: "warning"
           }
         ).then(() => {
-          store.dispatch("user/resetToken").then(() => {
-            location.reload();
-          });
+          reload();
+          // 只有在当前路由不是登录页面才跳转
+          router.currentRoute.path !== "/sign/login" &&
+            router.replace({
+              path: "/sign/login"
+            });
         });
       }
       return Promise.reject(new Error(res.message || "Error"));

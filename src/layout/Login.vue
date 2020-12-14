@@ -7,13 +7,10 @@
 </template>
 
 <script>
-import Footer from "@/layout/Footer";
+import Footer from "@/layout/Footer.vue";
 export default {
   components: {
     Footer
-  },
-  mounted() {
-    console.log(this.$router);
   }
 };
 </script>

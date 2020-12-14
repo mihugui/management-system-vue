@@ -41,7 +41,7 @@ export default {
         userName: "admin",
         password: "admin"
       },
-      redirect: "background",
+      redirect: "/background",
       loading: false
     };
   },
@@ -50,9 +50,9 @@ export default {
     login() {
       this.loading = true;
       this.$store
-        .dispatch("user/login", this.loginForm)
+        .dispatch("login/login", this.loginForm)
         .then(() => {
-          console.log("success");
+          this.getPermission();
           this.$router.push({
             path: this.redirect || "/",
             query: this.otherQuery
@@ -62,6 +62,13 @@ export default {
         .catch(() => {
           this.loading = false;
         });
+    },
+    // 获取权限
+    getPermission() {
+      this.$store
+        .dispatch("login/getPermission")
+        .then(() => {})
+        .catch(() => {});
     },
     // 注册
     register() {}

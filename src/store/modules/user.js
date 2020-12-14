@@ -1,27 +1,16 @@
-import { login } from "@/api/user";
-import { setToken } from "@/utils/auth";
+import { list } from "@/api/user";
 
-const state = {
-  token: ""
-};
+const state = {};
 
-const mutations = {
-  SET_TOKEN: (state, token) => {
-    console.log(token);
-    state.token = token;
-  }
-};
+const mutations = {};
 
 const actions = {
-  // user login
-  login({ commit }, userInfo) {
-    const { userName, password } = userInfo;
+  // 用户列表
+  list() {
     return new Promise((resolve, reject) => {
-      login({ userName: userName.trim(), password: password })
+      list({})
         .then(response => {
-          commit("SET_TOKEN", response.token);
-          setToken(response.token);
-          resolve();
+          resolve(response);
         })
         .catch(error => {
           reject(error);
