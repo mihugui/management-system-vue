@@ -1,8 +1,8 @@
 <template>
   <div>
-    mhg ©2020 Created by mihugui
+    <p>mhg ©2020 Created by mihugui</p>
     <el-link type="primary" href="http://beian.miit.gov.cn/"
-      >浙ICP备18035813号-1</el-link
+      >浙ICP备18035813号</el-link
     >
   </div>
 </template>

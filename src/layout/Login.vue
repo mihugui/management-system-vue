@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>Header</el-header>
+    <el-header>迷糊鬼个人生活</el-header>
     <el-main><router-view /></el-main>
     <el-footer><Footer /></el-footer>
   </el-container>

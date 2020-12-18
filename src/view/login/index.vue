@@ -34,12 +34,11 @@
 
 <script>
 export default {
-  name: "Login",
   data() {
     return {
       loginForm: {
         userName: "admin",
-        password: "admin"
+        password: "123456"
       },
       redirect: "/background",
       loading: false
@@ -53,10 +52,11 @@ export default {
         .dispatch("login/login", this.loginForm)
         .then(() => {
           this.getPermission();
-          this.$router.push({
-            path: this.redirect || "/",
-            query: this.otherQuery
-          });
+          // this.$router.push({
+          //   path: this.redirect || "/",
+          //   query: this.otherQuery
+          // });
+          this.$router.go(-1);
           this.loading = false;
         })
         .catch(() => {
@@ -76,4 +76,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scope></style>

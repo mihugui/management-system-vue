@@ -1,11 +1,16 @@
 <template>
   <div>
-    用户管理
+    角色管理
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      list: []
+    };
+  },
   mounted() {
     this.getList();
   },
@@ -15,6 +20,7 @@ export default {
         .dispatch("user/list")
         .then(res => {
           console.log(res);
+          this.list = res.data;
         })
         .catch(error => {
           console.log(error);

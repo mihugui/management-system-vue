@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import router from "../router/index";
 
 const TokenKey = "Admin-Token";
 const PermissionKey = "Admin-Permission";
@@ -30,4 +31,17 @@ export function removePermissions() {
 export function reload() {
   removeToken();
   removePermissions();
+}
+
+export function getRouter(name) {
+  for (let route of router.options.routes) {
+    if (route.name === name) {
+      return route;
+    }
+  }
+}
+
+export function check(authority) {
+  let permission = getPermissions();
+  return permission.some(item => authority.includes(item));
 }

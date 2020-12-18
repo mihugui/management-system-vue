@@ -6,8 +6,7 @@
 
 <script>
 import Aside from "@/components/Aside/index.vue";
-import { getRouter } from "@/utils/router";
-import { getPermissions } from "@/utils/auth";
+import { getRouter, check } from "@/utils/auth";
 export default {
   data() {
     const menuData = this.getMenuData();
@@ -22,19 +21,22 @@ export default {
   mounted() {},
   methods: {
     getMenuData() {
-      let permissions = getPermissions();
       let routes = getRouter("background").children;
-      let menuData = [];
-      for (let route of routes) {
-        console.log(permissions);
-        console.log(route);
-        //判断是否展示
-        if (route.hideInMenu == false) {
-          //添加权限判定
-
-          menuData.push(route);
+      let menuData = new Array();
+      routes.forEach(item => {
+        // 判断是否展示
+        if (item.hideInMenu === false) {
+          // 添加权限判定;
+          if (check(item.meta.authority)) {
+            item.children.filter(element => {
+              return check(element.meta.authority);
+            });
+            menuData.push(item);
+          }
         }
-      }
+      });
+
+      console.log(menuData);
       return menuData;
     }
   }

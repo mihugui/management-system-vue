@@ -3,7 +3,8 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-import user from "./modules/User";
+// 用户管理
+import personnel from "./modules/personnel/index";
 
 // 登录注册
 import login from "./modules/Login";
@@ -15,6 +16,7 @@ const routes = [
     hideInMenu: true,
     meta: { authority: ["guest"] },
     name: "Home",
+    redirect: "sign/login",
     component: () => import("@/layout/Home")
   },
   {
@@ -23,7 +25,7 @@ const routes = [
     name: "background",
     meta: { authority: ["admin"] },
     component: () => import("@/layout/background/index"),
-    children: [user]
+    children: [personnel]
   },
   {
     path: "/sign",
