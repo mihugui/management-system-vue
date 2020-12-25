@@ -22,12 +22,12 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .main {
   background-color: #f9f9f9;
 }
 .header {
-  padding: 5px 5px 0px 0px;
-  min-width: 800px;
+  border-bottom: 1px solid #e6e6e6;
+  z-index: 1500;
 }
 </style>
