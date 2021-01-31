@@ -1,15 +1,34 @@
 <template>
   <div>
     <el-card>
+      <div slot="header" class="clearfix">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+          <el-form-item label="审批人">
+            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+          </el-form-item>
+          <el-form-item label="活动区域">
+            <el-select v-model="formInline.region" placeholder="活动区域">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">查询</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
       <el-table
         v-loading="loading"
         :data="tableData"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column label="姓名" prop="realName"></el-table-column>
-        <el-table-column label="用户名" prop="userName"></el-table-column>
-        <el-table-column label="邮箱" prop="email"></el-table-column>
+        <el-table-column
+          v-for="(item, key) in table.data"
+          :key="key"
+          :label="item.label"
+          :prop="item.prop"
+        ></el-table-column>
       </el-table>
       <el-pagination
         @size-change="sizeChange"
@@ -19,6 +38,7 @@
         :page-size="table.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="table.total"
+        style="padding: 10px 5px;"
       >
       </el-pagination>
     </el-card>
@@ -31,6 +51,20 @@ export default {
   data() {
     return {
       table: {
+        data: [
+          {
+            label: "姓名",
+            prop: "realName"
+          },
+          {
+            label: "用户名",
+            prop: "userName"
+          },
+          {
+            label: "邮箱",
+            prop: "email"
+          }
+        ],
         total: 10,
         pageSize: 10,
         current: 1

@@ -52,12 +52,6 @@ export default {
         .dispatch("login/login", this.loginForm)
         .then(() => {
           this.getPermission();
-          // this.$router.push({
-          //   path: this.redirect || "/",
-          //   query: this.otherQuery
-          // });
-          this.$router.go(-1);
-          this.loading = false;
         })
         .catch(() => {
           this.loading = false;
@@ -67,7 +61,13 @@ export default {
     getPermission() {
       this.$store
         .dispatch("login/getPermission")
-        .then(() => {})
+        .then(() => {
+          this.$router.push({
+            path: this.redirect || "/",
+            query: this.otherQuery
+          });
+          this.loading = false;
+        })
         .catch(() => {});
     },
     // 注册
